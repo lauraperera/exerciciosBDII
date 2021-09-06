@@ -1,5 +1,7 @@
-CREATE DATABASE primeiro;
+--Crie uma base de dados chamada primeiro
+REATE DATABASE primeiro;
 
+--Crie uma tabela chamada funcionario, dentro da base criada acima, com os seguintes atributos:
 CREATE TABLE funcionario(
     codigo INTEGER PRIMARY KEY,
     nome VARCHAR(30),
@@ -7,6 +9,7 @@ CREATE TABLE funcionario(
     cod_depto INTEGER
 );
 
+--Insira as linhas abaixo na tabela funcionario
 INSERT INTO
   funcionario
   (codigo, nome, salario, cod_depto)
@@ -22,11 +25,14 @@ VALUES
   (9, 'Marie', 1900, 2),
   (10, 'Julie', 3200, 3);
 
+
+--Liste o nome do funcionário e o seu salário
 SELECT 
     nome, salario 
 FROM 
     funcionario;
 
+--Aumente em 20% o salário de todos os funcionários lotados no departamento 1
 UPDATE 
     funcionario 
 SET 
@@ -34,6 +40,7 @@ SET
 WHERE 
     cod_depto = 1;
 
+--Liste todos os funcionários lotados no departamento 1 com salário superior a 1000
 SELECT 
     * 
 FROM 
@@ -42,19 +49,24 @@ WHERE
     cod_depto=1 
     AND salario>1000;
 
+--Delete todos os funcionários do departamento 3
 DELETE FROM 
     funcionario 
 WHERE 
     cod_depto=3;
 
+--Liste todos os funcionários novamente
 SELECT 
     * 
 FROM 
     funcionario;
 
+--Gere um arquivo texto baseado na tabela funcionario
 COPY funcionario TO 'Users\laura perera\Desktop\saidaAtividade1.txt' WITH DELIMITER '|';
 
+--Apague todas as linhas da tabela funcionario
 DELETE FROM 
     funcionario;
 
+--Importe o arquivo texto gerado anteriormente para a tabela funcionario
 COPY funcionario FROM 'c:\Users\laura perera\Desktop\saidaAtividade1.txt' WITH DELIMITER '|';
