@@ -36,6 +36,7 @@ COPY paciente FROM 'C:\Users\laura perera\Desktop\Atividade 3 - BDII\paciente.cs
 
 COPY consulta FROM 'C:\Users\laura perera\Desktop\Atividade 3 - BDII\consulta.csv' WITH DELIMITER ',';
 
+--Mostre o nome do médico e sua especialidade
 SELECT m.nome_med, e.codigo_esp, e.nome_esp 
 	FROM medico m, especialidade e
 	WHERE e.codigo_esp = m.codigo_esp
@@ -80,25 +81,37 @@ SELECT p.nome_pac, COUNT(c.codigo_pac)AS quantidade_consulta
 	GROUP BY p.nome_pac
 	
 -- Mostre a quantidade de consultas por data e médico.
-SELECT m.nome_med, c.data_con, COUNT(c.codigo_med) AS quantidade_consulta
-	FROM consulta c, medico m
-	WHERE m.codigo_med = c.codigo_med
-	GROUP BY m.nome_med, c.data_con
+SELECT 
+    m.nome_med, c.data_con, COUNT(c.codigo_med) AS quantidade_consulta
+FROM 
+    consulta c, medico m
+WHERE 
+    m.codigo_med = c.codigo_med
+GROUP BY 
+    m.nome_med, c.data_con
 	
 --Mostre os pacientes que nunca efetuaram uma consulta.
-SELECT p.nome_pac, p.codigo_pac 
-	FROM paciente p
-	WHERE 
+SELECT 
+    p.nome_pac, p.codigo_pac 
+FROM 
+    paciente p
+WHERE 
 	NOT EXISTS(
-		SELECT codigo_pac 
-		FROM consulta c
-		WHERE c.codigo_pac = p.codigo_pac);
+		SELECT 
+            codigo_pac 
+		FROM 
+            consulta c
+		WHERE 
+            c.codigo_pac = p.codigo_pac
+    );
 				
 				
 -- Mostre o nome do paciente, o nome do medico, a sua especialidade, a data e a hora de cada consulta.
-SELECT p.nome_pac, m.nome_med, e.nome_esp, c.data_con, c.hora_con
-	FROM consulta c, especialidade e, medico m, paciente p
-	WHERE 
-		p.codigo_pac = c.codigo_pac 
-		AND m.codigo_med = c.codigo_med
-		AND e.codigo_esp = m.codigo_esp
+SELECT 
+    p.nome_pac, m.nome_med, e.nome_esp, c.data_con, c.hora_con
+FROM 
+    consulta c, especialidade e, medico m, paciente p
+WHERE 
+	p.codigo_pac = c.codigo_pac 
+	AND m.codigo_med = c.codigo_med
+	AND e.codigo_esp = m.codigo_esp;
